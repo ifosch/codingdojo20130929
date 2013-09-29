@@ -26,6 +26,5 @@ class Test_llibre(unittest.TestCase):
 		db.query.assert_called_once_with("select *")
 		self.llibre2=Llibre("titol2","autor2")
 	
-	
 if __name__ == '__main__':
 	unittest.main()
