@@ -17,19 +17,24 @@ class Test(unittest.TestCase):
 		pass
 	
 	def testConnect(self):
+		query = "select * from *"
 		MySQLdb = Mock()
-		MySQLdb.connect = Mock()
-		libro1 = llibre (MySQLdb,"Titulo1", "Autor1")
+		db = Mock()
+		db.query = Mock()
+		MySQLdb.connect = Mock(return_value=db)
+		libro1 = llibre (MySQLdb.connect,"Titulo1", "Autor1")
 		MySQLdb.connect.assert_called_once_with(user,passwd)
-		self.assertIsInstance(MySQLdb.connect(), db)
-		db.query.assert_called_once_with(libro1)
+		db.query.assert_called_once_with(query)
+
 		
 class llibre(object):
 		
-	def __init__ (self, _MySQLdb,titol, autor):
-		MySQLdb = _MySQLdb
-		mydatabase = MySQLdb.connect(user,passwd)
-		mydatabase.query(self)
+	def __init__ (self, _connect,titol, autor):
+		query = "select * from *"
+		connect = _connect
+		mydatabase = connect(user,passwd)
+		mydatabase.query(query)
+		
 	
 
 if __name__ == "__main__":
